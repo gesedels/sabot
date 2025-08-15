@@ -11,6 +11,7 @@ import (
 var MockNotes = [][]any{
 	{1000, "alpha"},
 	{2000, "bravo"},
+	{3000, "charlie"},
 }
 
 // MockPages is a slice of Pages table inserts for unit testing.
@@ -18,6 +19,23 @@ var MockPages = [][]any{
 	{1000, 1, "Alpha one."},
 	{1100, 1, "Alpha two."},
 	{2000, 2, "Bravo one."},
+}
+
+// Get returns a SQL query result as a string:any map.
+func Get(db *sqlx.DB, code string, elems ...any) map[string]any {
+	data := make(map[string]any)
+	rows, err := db.Queryx(code, elems...)
+	if err != nil {
+		panic(err)
+	}
+
+	for rows.Next() {
+		if err := rows.MapScan(data); err != nil {
+			panic(err)
+		}
+	}
+
+	return data
 }
 
 // MockDB returns an in-memory database populated with mock data.
