@@ -21,8 +21,18 @@ var MockPages = [][]any{
 	{2000, 2, "Bravo one."},
 }
 
-// Get returns a SQL query result as a string:any map.
-func Get(db *sqlx.DB, code string, elems ...any) map[string]any {
+// GetBool returns a database query as a boolean.
+func GetBool(db *sqlx.DB, code string, elems ...any) bool {
+	var ok bool
+	if err := db.Get(&ok, code, elems...); err != nil {
+		panic(err)
+	}
+
+	return ok
+}
+
+// GetMap returns a database query as a string:any map.
+func GetMap(db *sqlx.DB, code string, elems ...any) map[string]any {
 	data := make(map[string]any)
 	rows, err := db.Queryx(code, elems...)
 	if err != nil {
