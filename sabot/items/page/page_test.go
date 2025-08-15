@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func xPage() *Page {
+func xPage(id int) *Page {
 	db := test.MockDB()
-	page, _ := Get(db, 1)
+	page, _ := Get(db, id)
 	return page
 }
 
@@ -34,7 +34,7 @@ func TestGet(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	// setup
-	page := xPage()
+	page := xPage(1)
 
 	// success
 	err := page.Delete()

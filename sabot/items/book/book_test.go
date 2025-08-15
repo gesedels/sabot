@@ -3,7 +3,7 @@ package book
 import (
 	"testing"
 
-	"github.com/gesedels/sabot/sabot/items/page"
+	"github.com/gesedels/sabot/sabot/tools/test"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -19,8 +19,7 @@ func TestOpen(t *testing.T) {
 	assert.NoError(t, err)
 
 	// success - check database
-	var size int
-	book.DB.Get(&size, "select count(*) from SQLITE_SCHEMA")
+	size := test.GetInt(book.DB, "select count(*) from SQLITE_SCHEMA")
 	assert.NotZero(t, size)
 }
 
@@ -35,7 +34,6 @@ func TestCreate(t *testing.T) {
 	assert.Equal(t, "name", note.Name)
 
 	// success - check database
-	page := new(page.Page)
-	book.DB.Get(page, "select * from Pages where note=1")
-	assert.Equal(t, "Body.", page.Body)
+	page := test.GetMap(book.DB, "select * from Pages where note=1")
+	assert.Equal(t, "Body.", page["body"])
 }

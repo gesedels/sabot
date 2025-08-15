@@ -23,12 +23,22 @@ var MockPages = [][]any{
 
 // GetBool returns a database query as a boolean.
 func GetBool(db *sqlx.DB, code string, elems ...any) bool {
-	var ok bool
-	if err := db.Get(&ok, code, elems...); err != nil {
+	var data bool
+	if err := db.Get(&data, code, elems...); err != nil {
 		panic(err)
 	}
 
-	return ok
+	return data
+}
+
+// GetInt returns a database query as an integer.
+func GetInt(db *sqlx.DB, code string, elems ...any) int {
+	var data int
+	if err := db.Get(&data, code, elems...); err != nil {
+		panic(err)
+	}
+
+	return data
 }
 
 // GetMap returns a database query as a string:any map.

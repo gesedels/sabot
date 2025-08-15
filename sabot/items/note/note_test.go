@@ -7,9 +7,9 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func xNote() *Note {
+func xNote(name string) *Note {
 	db := test.MockDB()
-	note, _ := Get(db, "alpha")
+	note, _ := Get(db, name)
 	return note
 }
 
@@ -33,7 +33,7 @@ func TestGet(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	// setup
-	note := xNote()
+	note := xNote("alpha")
 
 	// success
 	err := note.Delete()
@@ -46,7 +46,7 @@ func TestDelete(t *testing.T) {
 
 func TestLatest(t *testing.T) {
 	// setup
-	note := xNote()
+	note := xNote("alpha")
 
 	// success
 	page, err := note.Latest()
@@ -54,7 +54,7 @@ func TestLatest(t *testing.T) {
 	assert.NoError(t, err)
 
 	// setup
-	note = &Note{DB: note.DB, ID: 3}
+	note = xNote("charlie")
 
 	// failure - non-existent Page
 	page, err = note.Latest()
@@ -64,7 +64,7 @@ func TestLatest(t *testing.T) {
 
 func TestUpdate(t *testing.T) {
 	// setup
-	note := xNote()
+	note := xNote("alpha")
 
 	// success
 	page, err := note.Update("Body.")

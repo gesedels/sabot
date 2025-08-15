@@ -15,6 +15,15 @@ func TestGetBool(t *testing.T) {
 	assert.True(t, ok)
 }
 
+func TestGetInt(t *testing.T) {
+	// setup
+	db := MockDB()
+
+	// success
+	data := GetInt(db, "select 1")
+	assert.Equal(t, 1, data)
+}
+
 func TestGetMap(t *testing.T) {
 	// setup
 	db := MockDB()
