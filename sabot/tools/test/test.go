@@ -16,9 +16,9 @@ var MockNotes = [][]string{
 
 // MockPages is a slice of Pages table inserts for unit testing.
 var MockPages = [][]string{
-	{"1000", "1", "Alpha one.\n"},
-	{"1100", "1", "Alpha two.\n"},
-	{"2000", "2", "Bravo one.\n"},
+	{"1000", "1", "Alpha one."},
+	{"1100", "1", "Alpha two."},
+	{"2000", "2", "Bravo one."},
 }
 
 // MockDB returns an in-memory database populated with mock data.

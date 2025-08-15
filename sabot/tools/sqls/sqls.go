@@ -21,6 +21,6 @@ const Schema = `
 		init integer not null default (unixepoch()),
 		note integer not null references Notes(id),
 		body text    not null,
-		hash text    not null unique
+		hash text    not null
 	);
 `
