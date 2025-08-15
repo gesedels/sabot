@@ -2,18 +2,11 @@
 package test
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
-
+	"github.com/gesedels/sabot/sabot/tools/neat"
 	"github.com/gesedels/sabot/sabot/tools/sqls"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 )
-
-func hashString(text string) string {
-	hash := sha256.Sum256([]byte(text))
-	return base64.RawURLEncoding.EncodeToString(hash[:])
-}
 
 // MockNotes is a slice of Notes table inserts for unit testing.
 var MockNotes = [][]string{
@@ -36,14 +29,14 @@ func MockDB() *sqlx.DB {
 	for _, note := range MockNotes {
 		db.MustExec(
 			"insert into Notes (init, name, hash) values (?, ?, ?)",
-			note[0], note[1], hashString(note[1]),
+			note[0], note[1], neat.Hash(note[1]),
 		)
 	}
 
 	for _, page := range MockPages {
 		db.MustExec(
 			"insert into Pages (init, note, body, hash) values (?, ?, ?, ?)",
-			page[0], page[1], page[2], hashString(page[2]),
+			page[0], page[1], page[2], neat.Hash(page[2]),
 		)
 	}
 
