@@ -34,6 +34,6 @@ func TestCreate(t *testing.T) {
 	assert.Equal(t, "name", note.Name)
 
 	// success - check database
-	page := test.GetMap(book.DB, "select * from Pages where note=1")
-	assert.Equal(t, "Body.", page["body"])
+	data := test.GetMap(book.DB, "select * from Pages where note=1")
+	assert.Equal(t, "Body.", data["body"])
 }

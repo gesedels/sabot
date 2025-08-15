@@ -11,7 +11,7 @@ import (
 var MockNotes = [][]any{
 	{1000, "alpha"},
 	{2000, "bravo"},
-	{3000, "charlie"},
+	{3000, "empty"},
 }
 
 // MockPages is a slice of Pages table inserts for unit testing.

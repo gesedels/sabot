@@ -25,7 +25,7 @@ func TestGet(t *testing.T) {
 	assert.Equal(t, "alpha", note.Name)
 	assert.NoError(t, err)
 
-	// failure - non-existent Page
+	// failure - non-existent Note
 	note, err = Get(db, "")
 	assert.Nil(t, note)
 	assert.NoError(t, err)
@@ -54,7 +54,7 @@ func TestLatest(t *testing.T) {
 	assert.NoError(t, err)
 
 	// setup
-	note = xNote("charlie")
+	note = xNote("empty")
 
 	// failure - non-existent Page
 	page, err = note.Latest()
@@ -71,4 +71,8 @@ func TestUpdate(t *testing.T) {
 	assert.Equal(t, 4, page.ID)
 	assert.Equal(t, "Body.", page.Body)
 	assert.NoError(t, err)
+
+	// success - check database
+	data := test.GetMap(note.DB, "select * from Pages where note=1")
+	assert.Equal(t, "Body.", data["body"])
 }
