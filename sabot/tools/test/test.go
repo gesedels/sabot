@@ -2,23 +2,22 @@
 package test
 
 import (
-	"github.com/gesedels/sabot/sabot/tools/neat"
 	"github.com/gesedels/sabot/sabot/tools/sqls"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
 )
 
 // MockNotes is a slice of Notes table inserts for unit testing.
-var MockNotes = [][]string{
-	{"1000", "alpha"},
-	{"2000", "bravo"},
+var MockNotes = [][]any{
+	{1000, "alpha"},
+	{2000, "bravo"},
 }
 
 // MockPages is a slice of Pages table inserts for unit testing.
-var MockPages = [][]string{
-	{"1000", "1", "Alpha one."},
-	{"1100", "1", "Alpha two."},
-	{"2000", "2", "Bravo one."},
+var MockPages = [][]any{
+	{1000, 1, "Alpha one."},
+	{1100, 1, "Alpha two."},
+	{2000, 2, "Bravo one."},
 }
 
 // MockDB returns an in-memory database populated with mock data.
@@ -35,8 +34,8 @@ func MockDB() *sqlx.DB {
 
 	for _, page := range MockPages {
 		db.MustExec(
-			"insert into Pages (init, note, body, hash) values (?, ?, ?, ?)",
-			page[0], page[1], page[2], neat.Hash(page[2]),
+			"insert into Pages (init, note, body) values (?, ?, ?)",
+			page[0], page[1], page[2],
 		)
 	}
 

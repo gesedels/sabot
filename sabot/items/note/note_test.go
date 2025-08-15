@@ -3,7 +3,6 @@ package note
 import (
 	"testing"
 
-	"github.com/gesedels/sabot/sabot/tools/neat"
 	"github.com/gesedels/sabot/sabot/tools/test"
 	"github.com/stretchr/testify/assert"
 )
@@ -64,6 +63,5 @@ func TestUpdate(t *testing.T) {
 	page, err := note.Update("Body.")
 	assert.Equal(t, 4, page.ID)
 	assert.Equal(t, "Body.", page.Body)
-	assert.Equal(t, neat.Hash("Body."), page.Hash)
 	assert.NoError(t, err)
 }

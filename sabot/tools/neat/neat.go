@@ -2,8 +2,6 @@
 package neat
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
 	"strings"
 	"time"
 	"unicode"
@@ -12,12 +10,6 @@ import (
 // Body returns a whitespace-trimmed body string.
 func Body(body string) string {
 	return strings.TrimSpace(body)
-}
-
-// Hash returns a base64-encoded SHA256 hash of a string.
-func Hash(text string) string {
-	hash := sha256.Sum256([]byte(text))
-	return base64.RawURLEncoding.EncodeToString(hash[:])
 }
 
 // Name returns a lowercase alphanumeric-with-dashes name string.

@@ -15,7 +15,6 @@ type Page struct {
 	Init int      `db:"init"`
 	Note int      `db:"note"`
 	Body string   `db:"body"`
-	Hash string   `db:"hash"`
 }
 
 // Get returns an existing Page by ID.

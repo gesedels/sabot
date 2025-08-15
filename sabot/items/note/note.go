@@ -58,9 +58,8 @@ func (n *Note) Latest() (*page.Page, error) {
 // Update creates and returns a new Page in the Note.
 func (n *Note) Update(body string) (*page.Page, error) {
 	body = neat.Body(body)
-	hash := neat.Hash(body)
-	code := "insert into Pages (note, body, hash) values (?, ?, ?)"
-	if _, err := n.DB.Exec(code, n.ID, body, hash); err != nil {
+	code := "insert into Pages (note, body) values (?, ?)"
+	if _, err := n.DB.Exec(code, n.ID, body); err != nil {
 		return nil, fmt.Errorf("cannot update Note %q - %w", n.Name, err)
 	}
 

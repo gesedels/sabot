@@ -3,7 +3,6 @@ package page
 import (
 	"testing"
 
-	"github.com/gesedels/sabot/sabot/tools/neat"
 	"github.com/gesedels/sabot/sabot/tools/test"
 	"github.com/stretchr/testify/assert"
 )
@@ -25,7 +24,6 @@ func TestGet(t *testing.T) {
 	assert.Equal(t, 1000, page.Init)
 	assert.Equal(t, 1, page.Note)
 	assert.Equal(t, "Alpha one.", page.Body)
-	assert.Equal(t, neat.Hash("Alpha one."), page.Hash)
 	assert.NoError(t, err)
 
 	// failure - non-existent Page

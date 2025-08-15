@@ -13,12 +13,6 @@ func TestBody(t *testing.T) {
 	assert.Equal(t, "Body.", body)
 }
 
-func TestHash(t *testing.T) {
-	// success
-	hash := Hash("Body.")
-	assert.Equal(t, "UhslzEWGhOtQSnyIWtzNdIzy-XQp_4ChSIbQgE1iyGI", hash)
-}
-
 func TestName(t *testing.T) {
 	// success
 	name := Name("\tNAME 123!!!\n")

@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/gesedels/sabot/sabot/items/page"
-	"github.com/gesedels/sabot/sabot/tools/neat"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -39,5 +38,4 @@ func TestCreate(t *testing.T) {
 	page := new(page.Page)
 	book.DB.Get(page, "select * from Pages where note=1")
 	assert.Equal(t, "Body.", page.Body)
-	assert.Equal(t, neat.Hash("Body."), page.Hash)
 }

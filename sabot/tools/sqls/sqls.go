@@ -19,7 +19,6 @@ const Schema = `
 		id   integer primary key asc,
 		init integer not null default (unixepoch()),
 		note integer not null references Notes(id) on delete cascade,
-		body text    not null,
-		hash text    not null
+		body text    not null
 	);
 `
