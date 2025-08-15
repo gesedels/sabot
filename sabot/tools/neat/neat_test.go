@@ -10,13 +10,13 @@ import (
 func TestBody(t *testing.T) {
 	// success
 	body := Body("\tBody.\n")
-	assert.Equal(t, "Body.\n", body)
+	assert.Equal(t, "Body.", body)
 }
 
 func TestHash(t *testing.T) {
 	// success
-	hash := Hash("Text.\n")
-	assert.Equal(t, "YeuxYsUiVnuqvt-xQv5zQduD0q0nLyiGySwa7wR7RVE", hash)
+	hash := Hash("Body.")
+	assert.Equal(t, "UhslzEWGhOtQSnyIWtzNdIzy-XQp_4ChSIbQgE1iyGI", hash)
 }
 
 func TestName(t *testing.T) {
@@ -27,14 +27,9 @@ func TestName(t *testing.T) {
 
 func TestTime(t *testing.T) {
 	// setup
-	want := time.Unix(1000, 0)
-	zero := time.Unix(0, 0)
+	want := time.Unix(1000, 0).In(time.Local)
 
-	// success - valid string
-	tobj := Time("1000\n")
+	// success
+	tobj := Time(1000)
 	assert.Equal(t, want, tobj)
-
-	// success - invalid string
-	tobj = Time("")
-	assert.Equal(t, zero, tobj)
 }

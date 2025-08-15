@@ -4,15 +4,14 @@ package neat
 import (
 	"crypto/sha256"
 	"encoding/base64"
-	"strconv"
 	"strings"
 	"time"
 	"unicode"
 )
 
-// Body returns a whitespace-trimmed body string with a trailing newline.
+// Body returns a whitespace-trimmed body string.
 func Body(body string) string {
-	return strings.TrimSpace(body) + "\n"
+	return strings.TrimSpace(body)
 }
 
 // Hash returns a base64-encoded SHA256 hash of a string.
@@ -36,9 +35,7 @@ func Name(name string) string {
 	return strings.Trim(string(chars), "-")
 }
 
-// Time returns a time.Time object from a Unix UTC string.
-func Time(unix string) time.Time {
-	unix = strings.TrimSpace(unix)
-	uint, _ := strconv.ParseInt(unix, 10, 64)
-	return time.Unix(uint, 0)
+// Time returns a local Time object from a Unix UTC integer.
+func Time(unix int64) time.Time {
+	return time.Unix(unix, 0).In(time.Local)
 }
