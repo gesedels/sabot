@@ -26,7 +26,7 @@ func TestGet(t *testing.T) {
 	assert.NoError(t, err)
 
 	// failure - non-existent Page
-	note, err = Get(db, "nope")
+	note, err = Get(db, "")
 	assert.Nil(t, note)
 	assert.NoError(t, err)
 }
@@ -40,8 +40,7 @@ func TestDelete(t *testing.T) {
 	assert.NoError(t, err)
 
 	// success - check database
-	var ok bool
-	note.DB.Get(&ok, "select exists (select 1 from Notes where name='alpha')")
+	ok := test.GetBool(note.DB, "select exists (select 1 from Notes where id=1)")
 	assert.False(t, ok)
 }
 
@@ -52,6 +51,14 @@ func TestLatest(t *testing.T) {
 	// success
 	page, err := note.Latest()
 	assert.Equal(t, "Alpha two.", page.Body)
+	assert.NoError(t, err)
+
+	// setup
+	note = &Note{DB: note.DB, ID: 3}
+
+	// failure - non-existent Page
+	page, err = note.Latest()
+	assert.Nil(t, page)
 	assert.NoError(t, err)
 }
 

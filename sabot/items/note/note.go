@@ -46,13 +46,18 @@ func (n *Note) Delete() error {
 
 // Latest return the Note's latest Page.
 func (n *Note) Latest() (*page.Page, error) {
-	var id int
-	code := "select id from Pages where note=? order by id desc limit 1"
-	if err := n.DB.Get(&id, code, n.ID); err != nil {
-		return nil, fmt.Errorf("cannot access Note %q - %w", n.Name, err)
-	}
+	page := &page.Page{DB: n.DB}
+	code := "select * from Pages where note=? order by id desc limit 1"
+	err := n.DB.Get(page, code, n.ID)
 
-	return page.Get(n.DB, id)
+	switch {
+	case err == sql.ErrNoRows:
+		return nil, nil
+	case err != nil:
+		return nil, fmt.Errorf("cannot access Note %q - %w", n.Name, err)
+	default:
+		return page, nil
+	}
 }
 
 // Update creates and returns a new Page in the Note.

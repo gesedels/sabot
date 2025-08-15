@@ -27,7 +27,7 @@ func TestGet(t *testing.T) {
 	assert.NoError(t, err)
 
 	// failure - non-existent Page
-	page, err = Get(db, 0)
+	page, err = Get(db, -1)
 	assert.Nil(t, page)
 	assert.NoError(t, err)
 }
@@ -41,7 +41,6 @@ func TestDelete(t *testing.T) {
 	assert.NoError(t, err)
 
 	// success - check database
-	var ok bool
-	page.DB.Get(&ok, "select exists (select 1 from Pages where id=1)")
+	ok := test.GetBool(page.DB, "select exists (select 1 from Pages where id=1)")
 	assert.False(t, ok)
 }
