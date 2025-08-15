@@ -28,7 +28,7 @@ func Get(db *sqlx.DB, id int) (*Page, error) {
 	case err == sql.ErrNoRows:
 		return nil, nil
 	case err != nil:
-		return nil, fmt.Errorf("cannot get Page %d - %w", id, err)
+		return nil, fmt.Errorf("cannot access Page %d - %w", id, err)
 	default:
 		return page, nil
 	}

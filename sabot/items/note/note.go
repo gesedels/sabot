@@ -16,7 +16,6 @@ type Note struct {
 	ID   int      `db:"id"`
 	Init int      `db:"init"`
 	Name string   `db:"name"`
-	Hash string   `db:"hash"`
 }
 
 // Get returns an existing Note by name.
@@ -29,7 +28,7 @@ func Get(db *sqlx.DB, name string) (*Note, error) {
 	case err == sql.ErrNoRows:
 		return nil, nil
 	case err != nil:
-		return nil, fmt.Errorf("cannot get Note %q - %w", name, err)
+		return nil, fmt.Errorf("cannot access Note %q - %w", name, err)
 	default:
 		return note, nil
 	}

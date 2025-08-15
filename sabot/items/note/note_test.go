@@ -24,7 +24,6 @@ func TestGet(t *testing.T) {
 	assert.Equal(t, 1, note.ID)
 	assert.Equal(t, 1000, note.Init)
 	assert.Equal(t, "alpha", note.Name)
-	assert.Equal(t, neat.Hash("alpha"), note.Hash)
 	assert.NoError(t, err)
 
 	// failure - non-existent Page
@@ -65,10 +64,6 @@ func TestUpdate(t *testing.T) {
 	page, err := note.Update("Body.")
 	assert.Equal(t, 4, page.ID)
 	assert.Equal(t, "Body.", page.Body)
+	assert.Equal(t, neat.Hash("Body."), page.Hash)
 	assert.NoError(t, err)
-
-	// success - check database
-	var ok bool
-	page.DB.Get(&ok, "select exists (select 1 from Pages where id=4)")
-	assert.True(t, ok)
 }

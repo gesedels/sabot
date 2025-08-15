@@ -12,8 +12,7 @@ const Schema = `
 	create table Notes (
 		id   integer primary key asc,
 		init integer not null default (unixepoch()),
-		name text    not null unique,
-		hash text    not null unique
+		name text    not null unique
 	);
 
 	create table Pages (

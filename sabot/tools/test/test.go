@@ -28,8 +28,8 @@ func MockDB() *sqlx.DB {
 
 	for _, note := range MockNotes {
 		db.MustExec(
-			"insert into Notes (init, name, hash) values (?, ?, ?)",
-			note[0], note[1], neat.Hash(note[1]),
+			"insert into Notes (init, name) values (?, ?)",
+			note[0], note[1],
 		)
 	}
 
