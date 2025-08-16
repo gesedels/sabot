@@ -48,3 +48,31 @@ func TestGet(t *testing.T) {
 	assert.Equal(t, "alpha", note.Name)
 	assert.NoError(t, err)
 }
+
+func TestMatch(t *testing.T) {
+	// setup
+	book := xBook(t)
+
+	// success
+	notes, err := book.Match("ALPH")
+	assert.Len(t, notes, 1)
+	// assert.Equal(t, "alpha", notes[0].Name)
+	assert.NoError(t, err)
+}
+
+func TestSelect(t *testing.T) {
+	// setup
+	book := xBook(t)
+
+	// success
+	notes, err := book.Select("select * from Notes where name=?", "alpha")
+	assert.Len(t, notes, 1)
+	assert.NotNil(t, notes[0].DB)
+	assert.Equal(t, "alpha", notes[0].Name)
+	assert.NoError(t, err)
+
+	// failure - no resulting Notes
+	notes, err = book.Select("select * from Notes where name=?", "")
+	assert.Nil(t, notes)
+	assert.NoError(t, err)
+}

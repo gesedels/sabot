@@ -29,7 +29,7 @@ func Get(db *sqlx.DB, name string) (*Note, error) {
 	case err == sql.ErrNoRows:
 		return nil, nil
 	case err != nil:
-		return nil, fmt.Errorf("cannot access Note %q - %w", name, err)
+		return nil, fmt.Errorf("cannot read Note %q - %w", name, err)
 	default:
 		return note, nil
 	}
@@ -55,7 +55,7 @@ func (n *Note) Latest() (*page.Page, error) {
 	case err == sql.ErrNoRows:
 		return nil, nil
 	case err != nil:
-		return nil, fmt.Errorf("cannot access Note %q - %w", n.Name, err)
+		return nil, fmt.Errorf("cannot read Note %q - %w", n.Name, err)
 	default:
 		return page, nil
 	}

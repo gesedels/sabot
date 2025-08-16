@@ -2,6 +2,7 @@
 package book
 
 import (
+	"database/sql"
 	"fmt"
 
 	"github.com/gesedels/sabot/sabot/items/note"
@@ -68,5 +69,28 @@ func (b *Book) Get(name string) (*note.Note, error) {
 	return note.Get(b.DB, name)
 }
 
-// Match
-// func (b *Book) Match() {}
+// Match returns all existing Notes with names containing a substring.
+func (b *Book) Match(text string) ([]*note.Note, error) {
+	text = "%" + text + "%"
+	code := "select * from Notes where name like ? order by name asc"
+	return b.Select(code, text)
+}
+
+// Select returns all Notes matching a select query.
+func (b *Book) Select(code string, elems ...any) ([]*note.Note, error) {
+	var notes []*note.Note
+	err := b.DB.Select(&notes, code, elems...)
+
+	switch {
+	case err == sql.ErrNoRows:
+		return nil, nil
+	case err != nil:
+		return nil, fmt.Errorf("cannot read Notes - %w", err)
+	default:
+		for _, note := range notes {
+			note.DB = b.DB
+		}
+
+		return notes, nil
+	}
+}
