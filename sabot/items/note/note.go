@@ -37,7 +37,7 @@ func Get(db *sqlx.DB, name string) (*Note, error) {
 
 // Delete deletes the Note if it exists.
 func (n *Note) Delete() error {
-	code := "delete from Notes where id=? "
+	code := "delete from Notes where id=?"
 	if _, err := n.DB.Exec(code, n.ID); err != nil {
 		return fmt.Errorf("cannot delete Note %q - %w", n.Name, err)
 	}

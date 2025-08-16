@@ -67,12 +67,7 @@ func MockDB(t *testing.T) *sqlx.DB {
 	dest := filepath.Join(dire, "test.db")
 	db := sqlx.MustConnect("sqlite3", dest)
 	db.MustExec(sqls.Pragma + sqls.Schema)
-	MockInsert(db)
-	return db
-}
 
-// MockInsert inserts MockNotes and MockPages into an existing database.
-func MockInsert(db *sqlx.DB) {
 	for _, note := range MockNotes {
 		db.MustExec(
 			"insert into Notes (init, name) values (?, ?)",
@@ -86,4 +81,6 @@ func MockInsert(db *sqlx.DB) {
 			page[0], page[1], page[2],
 		)
 	}
+
+	return db
 }

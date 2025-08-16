@@ -1,7 +1,6 @@
 package book
 
 import (
-	"path/filepath"
 	"testing"
 
 	"github.com/gesedels/sabot/sabot/tools/test"
@@ -9,10 +8,8 @@ import (
 )
 
 func xBook(t *testing.T) *Book {
-	dire := t.TempDir()
-	dest := filepath.Join(dire, "test.db")
-	book, _ := Open(dest)
-	test.MockInsert(book.DB)
+	db := test.MockDB(t)
+	book := &Book{DB: db}
 	return book
 }
 

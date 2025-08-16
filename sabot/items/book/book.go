@@ -13,7 +13,7 @@ import (
 
 // Book is a single initialised database with multiple notes.
 type Book struct {
-	DB *sqlx.DB
+	DB *sqlx.DB `db:"-"`
 }
 
 // Open returns a new Book with an initialised database connection.
