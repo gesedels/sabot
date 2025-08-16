@@ -1,14 +1,18 @@
 package book
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/gesedels/sabot/sabot/tools/test"
 	"github.com/stretchr/testify/assert"
 )
 
-func xBook() *Book {
-	book, _ := Open(":memory:")
+func xBook(t *testing.T) *Book {
+	dire := t.TempDir()
+	dest := filepath.Join(dire, "test.db")
+	book, _ := Open(dest)
+	test.MockInsert(book.DB)
 	return book
 }
 
@@ -25,15 +29,25 @@ func TestOpen(t *testing.T) {
 
 func TestCreate(t *testing.T) {
 	// setup
-	book := xBook()
+	book := xBook(t)
 
 	// success
 	note, err := book.Create("name", "Body.")
 	assert.NoError(t, err)
-	assert.Equal(t, 1, note.ID)
+	assert.Equal(t, 4, note.ID)
 	assert.Equal(t, "name", note.Name)
 
 	// success - check database
-	data := test.GetMap(book.DB, "select * from Pages where note=1")
+	data := test.GetMap(book.DB, "select * from Pages where note=4")
 	assert.Equal(t, "Body.", data["body"])
+}
+
+func TestGet(t *testing.T) {
+	// setup
+	book := xBook(t)
+
+	// success
+	note, err := book.Get("alpha")
+	assert.Equal(t, "alpha", note.Name)
+	assert.NoError(t, err)
 }

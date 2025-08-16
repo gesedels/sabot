@@ -2,6 +2,9 @@
 package test
 
 import (
+	"path/filepath"
+	"testing"
+
 	"github.com/gesedels/sabot/sabot/tools/sqls"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/mattn/go-sqlite3"
@@ -59,10 +62,17 @@ func GetMap(db *sqlx.DB, code string, elems ...any) map[string]any {
 }
 
 // MockDB returns an in-memory database populated with mock data.
-func MockDB() *sqlx.DB {
-	db := sqlx.MustConnect("sqlite3", ":memory:")
+func MockDB(t *testing.T) *sqlx.DB {
+	dire := t.TempDir()
+	dest := filepath.Join(dire, "test.db")
+	db := sqlx.MustConnect("sqlite3", dest)
 	db.MustExec(sqls.Pragma + sqls.Schema)
+	MockInsert(db)
+	return db
+}
 
+// MockInsert inserts MockNotes and MockPages into an existing database.
+func MockInsert(db *sqlx.DB) {
 	for _, note := range MockNotes {
 		db.MustExec(
 			"insert into Notes (init, name) values (?, ?)",
@@ -76,6 +86,4 @@ func MockDB() *sqlx.DB {
 			page[0], page[1], page[2],
 		)
 	}
-
-	return db
 }

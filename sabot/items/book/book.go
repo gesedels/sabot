@@ -63,11 +63,10 @@ func (b *Book) Create(name, body string) (*note.Note, error) {
 	return note, nil
 }
 
-// Latest
-// func (b *Book) Latest() {}
+// Get returns an existing Note.
+func (b *Book) Get(name string) (*note.Note, error) {
+	return note.Get(b.DB, name)
+}
 
 // Match
 // func (b *Book) Match() {}
-
-// Search
-// func (b *Book) Search() {}

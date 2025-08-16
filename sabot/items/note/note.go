@@ -20,6 +20,7 @@ type Note struct {
 
 // Get returns an existing Note by name.
 func Get(db *sqlx.DB, name string) (*Note, error) {
+	name = neat.Name(name)
 	note := &Note{DB: db}
 	code := "select * from Notes where name=? limit 1"
 	err := db.Get(note, code, name)
