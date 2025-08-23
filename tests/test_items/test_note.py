@@ -60,3 +60,15 @@ def test_delete(note):
 def test_exists(note):
     # success
     assert note.exists()
+
+
+def test_latest(note):
+    # success
+    page = note.latest()
+    assert page.body == "Alpha new.\n"
+
+
+def test_update(note):
+    # success
+    page = note.update("Body.\n")
+    assert page.body == "Body.\n"

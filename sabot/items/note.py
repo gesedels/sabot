@@ -5,6 +5,7 @@ Class definition for 'Note'.
 import sqlite3
 import time
 from sabot import tools
+from sabot.items.page import Page
 
 
 class Note:
@@ -83,3 +84,23 @@ class Note:
         code = "select exists(select 1 from Notes where n_id=?) as exst"
         drow = self.dbse.execute(code, [self.n_id]).fetchone()
         return drow["exst"]
+
+    def latest(self) -> Page:
+        """
+        Return the Note's latest Page.
+        """
+
+        code = "select p_id from Pages where note=? order by p_id desc"
+        drow = self.dbse.execute(code, [self.n_id]).fetchone()
+        return Page(self.dbse, drow["p_id"])
+
+    def update(self, body: str) -> Page:
+        """
+        Create and return a new Page for the Note.
+        """
+
+        body = tools.neat.body(body)
+        code = "insert into Pages (note, body) values (?, ?)"
+        curs = self.dbse.execute(code, [self.n_id, body])
+        self.dbse.commit()
+        return Page(self.dbse, curs.lastrowid or -1)
