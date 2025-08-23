@@ -69,7 +69,7 @@ class Page:
     @property
     def note(self) -> int:
         """
-        Return the Page's parent Note as an integer.
+        Return the Page's parent Note ID as an integer.
         """
 
         code = "select note from Pages where p_id=?"
