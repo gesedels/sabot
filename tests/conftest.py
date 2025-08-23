@@ -35,4 +35,5 @@ def mock(dbse: sqlite3.Connection) -> sqlite3.Connection:
     """
 
     dbse.executescript(sqls.PRAGMA + sqls.SCHEMA + INSERTS)
+    dbse.commit()
     return dbse
