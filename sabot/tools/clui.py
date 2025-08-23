@@ -15,10 +15,11 @@ def dbse_path(name: str) -> Path:
     if path := os.environ.get(name, None):
         return Path(path)
 
-    if path := os.environ.get("XDG_CONFIG_HOME", None):
+    elif path := os.environ.get("XDG_CONFIG_HOME", None):
         return Path(path) / "sabot.db"
 
-    if path := os.environ.get("HOME", None):
+    elif path := os.environ.get("HOME", None):
         return Path(path) / ".sabot"
 
-    raise ClickException("cannot detect database path")
+    else:
+        raise ClickException("cannot detect database path")
