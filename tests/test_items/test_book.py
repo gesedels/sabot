@@ -60,7 +60,12 @@ def test_get(book):
 
 
 def test_match(book):
-    # success
-    notes = list(book.match("alph"))
-    assert len(notes) == 1
-    assert notes[0].name == "alpha"
+    # success - empty string
+    notes = book.match("", sort="name", reverse=True)
+    notes = [note.name for note in notes]
+    assert notes == ["bravo", "alpha"]
+
+    # success - actual string
+    notes = book.match("alph", sort="name", reverse=True)
+    notes = [note.name for note in notes]
+    assert notes == ["alpha"]

@@ -8,9 +8,9 @@ from sabot.items.book import Book
 
 
 @click.group("sabot", add_help_option=False)
-@click.pass_context
 @click.help_option("-h", "--help")
 @click.version_option("", "-v", "--version", message=VERSION_TEXT)
+@click.pass_context
 def group(ctxt: click.Context):
     """
     Sabot: a sharp note-taking database in Python.

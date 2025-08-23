@@ -71,12 +71,13 @@ class Book:
         else:
             return None
 
-    def match(self, name: str) -> Iterator[Note]:
+    def match(self, name: str, *, sort: str, reverse: bool = False) -> Iterator[Note]:
         """
         Yield every Note in the Book with a name containing a substring.
         """
 
-        name = "%" + tools.neat.name(name) + "%"
-        code = "select n_id from Notes where name like ? order by name asc"
+        name = f"%{tools.neat.name(name)}%"
+        code = "select n_id from Notes where name like ? {OB}"
+        code = tools.dbse.order_by(code, sort, reverse=reverse)
         for drow in self.dbse.execute(code, [name]):
             yield Note(self.dbse, drow["n_id"])

@@ -8,8 +8,8 @@ from sabot.items.book import Book
 
 
 @group.command("show", add_help_option=False)
-@click.argument("name", required=True)
 @click.help_option("-h", "--help")
+@click.argument("name", required=True)
 @click.pass_obj
 def show(book: Book, name: str):
     """
