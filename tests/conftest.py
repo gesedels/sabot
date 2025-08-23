@@ -52,7 +52,7 @@ def run_command() -> Callable:
     def run_command(comm: click.Command, *elems: str) -> tuple[Book, int, str]:
         book = Book(":memory:")
         book.dbse.executescript(INSERTS)
-        rslt = CliRunner().invoke(comm, elems, obj=book)
+        rslt = CliRunner().invoke(comm, elems, catch_exceptions=False, obj=book)
         return book, rslt.exit_code, rslt.output
 
     return run_command
