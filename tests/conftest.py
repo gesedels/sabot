@@ -2,9 +2,13 @@
 Global unit testing fixtures.
 """
 
+import click
 import pytest
 import sqlite3
+from click.testing import CliRunner
+from sabot.items.book import Book
 from sabot.tools import sqls
+from typing_extensions import Callable
 
 INSERTS = """
     insert into Notes (init, name) values (1000, 'alpha');
@@ -37,3 +41,18 @@ def mock(dbse: sqlite3.Connection) -> sqlite3.Connection:
     dbse.executescript(sqls.PRAGMA + sqls.SCHEMA + INSERTS)
     dbse.commit()
     return dbse
+
+
+@pytest.fixture(scope="function")
+def run_command() -> Callable:
+    """
+    Return a function that returns the Book, exit code and output from a Command.
+    """
+
+    def run_command(comm: click.Command, *elems: str) -> tuple[Book, int, str]:
+        book = Book(":memory:")
+        book.dbse.executescript(INSERTS)
+        rslt = CliRunner().invoke(comm, elems, obj=book)
+        return book, rslt.exit_code, rslt.output
+
+    return run_command
