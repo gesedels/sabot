@@ -5,12 +5,13 @@ Tests for 'sabot.items.book'.
 import pytest
 import sqlite3
 from sabot.items.book import Book
+from tests.conftest import INSERTS
 
 
 @pytest.fixture(scope="function")
 def book(mock: sqlite3.Connection) -> Book:
     book = Book(":memory:")
-    book.dbse = mock
+    book.dbse.executescript(INSERTS)
     return book
 
 
@@ -18,6 +19,16 @@ def test_init(book):
     # success
     assert book.dbse
     assert book.path == ":memory:"
+
+    # success - check pragma executed
+    code = "pragma foreign_keys"
+    drow = book.dbse.execute(code).fetchone()
+    assert drow["foreign_keys"] == 1
+
+    # success - check schema executed
+    code = "select count(*) from SQLITE_SCHEMA"
+    drow = book.dbse.execute(code).fetchone()
+    assert drow["count(*)"] > 0
 
 
 def test_eq(book, tmp_path):

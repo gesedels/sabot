@@ -17,11 +17,19 @@ class Book:
 
     def __init__(self, path: str):
         """
-        Initialise the Book.
+        Initialise the Book, executing default pragma on a successful connection and
+        default schema if the resulting database has none defined.
         """
 
         self.dbse = sqlite3.connect(path)
         self.path = path
+        self.dbse.row_factory = sqlite3.Row
+        self.dbse.executescript(tools.sqls.PRAGMA)
+
+        code = "select count(*) from SQLITE_SCHEMA"
+        drow = self.dbse.execute(code).fetchone()
+        if drow["count(*)"] == 0:
+            self.dbse.executescript(tools.sqls.SCHEMA)
 
     def __eq__(self, book: object) -> bool:
         """
