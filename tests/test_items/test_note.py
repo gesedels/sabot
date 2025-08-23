@@ -46,7 +46,7 @@ def test_init_(note):
 
 def test_name(note):
     # success
-    assert str(note) == "alpha"
+    assert note.name == "alpha"
 
 
 def test_delete(note):

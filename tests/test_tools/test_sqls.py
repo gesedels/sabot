@@ -17,6 +17,6 @@ def test_pragma(dbse: sqlite3.Connection):
 def test_schema(dbse: sqlite3.Connection):
     # success
     dbse.executescript(sqls.SCHEMA)
-    code = "select count(*) from SQLITE_SCHEMA as size"
+    code = "select count(*) from SQLITE_SCHEMA"
     drow = dbse.execute(code).fetchone()
-    assert drow["size"] > 0
+    assert drow["count(*)"] > 0
