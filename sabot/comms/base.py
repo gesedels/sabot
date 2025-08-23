@@ -3,7 +3,7 @@ Base Click group definition.
 """
 
 import click
-from sabot import VERSION_TEXT, tools
+from sabot import tools, VERSION_TEXT
 from sabot.items.book import Book
 
 

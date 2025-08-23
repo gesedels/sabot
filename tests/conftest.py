@@ -23,7 +23,7 @@ INSERTS = """
 @pytest.fixture(scope="function")
 def dbse() -> sqlite3.Connection:
     """
-    Return a new in-memory SQLite database connection.
+    Return a new in-memory SQLite database.
     """
 
     dbse = sqlite3.connect(":memory:")
@@ -34,8 +34,7 @@ def dbse() -> sqlite3.Connection:
 @pytest.fixture(scope="function")
 def mock(dbse: sqlite3.Connection) -> sqlite3.Connection:
     """
-    Return a new in-memory SQLite database connection containing pragma, schema
-    and mock inserts.
+    Return a new in-memory SQLite database with pragma, schema and mock inserts.
     """
 
     dbse.executescript(sqls.PRAGMA + sqls.SCHEMA + INSERTS)
