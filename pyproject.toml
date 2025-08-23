@@ -4,7 +4,12 @@ version = "0.0.0"
 description = "A command-line note-taking database."
 readme = "readme.md"
 requires-python = ">=3.13"
-dependencies = ["click>=8.2.1"]
+dependencies = [
+    "click>=8.2.1",
+    "mypy>=1.17.1",
+    "pytest>=8.4.1",
+    "pytest-mypy>=1.0.1",
+]
 
 [tool.pyright]
 venvPath = "."
