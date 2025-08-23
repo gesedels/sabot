@@ -13,7 +13,7 @@ from sabot.items.book import Book
 @click.pass_obj
 def list_(book: Book, text: str):
     """
-    List all notes, or notes matching TEXT.
+    List all notes, or notes matching a substring.
     """
 
     for note in book.match(text):
