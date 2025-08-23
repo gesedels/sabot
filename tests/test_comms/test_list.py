@@ -6,12 +6,12 @@ from sabot.comms.list import list_
 
 
 def test_list_(run_command):
-    # success - no argument
-    _, code, text = run_command(list_)
+    # success - no argument, with options
+    _, code, text = run_command(list_, "-r", "-s", "name")
     assert code == 0
-    assert text == "alpha\nbravo\n"
+    assert text == "bravo\nalpha\n"
 
-    # success - with argument
+    # success - with argument, no options
     _, code, text = run_command(list_, "alph")
     assert code == 0
     assert text == "alpha\n"
