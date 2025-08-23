@@ -85,14 +85,16 @@ class Note:
         drow = self.dbse.execute(code, [self.n_id]).fetchone()
         return drow["exst"]
 
-    def latest(self) -> Page:
+    def latest(self) -> Page | None:
         """
-        Return the Note's latest Page.
+        Return the Note's latest Page, if it exists.
         """
 
         code = "select p_id from Pages where note=? order by p_id desc"
-        drow = self.dbse.execute(code, [self.n_id]).fetchone()
-        return Page(self.dbse, drow["p_id"])
+        if drow := self.dbse.execute(code, [self.n_id]).fetchone():
+            return Page(self.dbse, drow["p_id"])
+        else:
+            return None
 
     def update(self, body: str) -> Page:
         """

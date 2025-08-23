@@ -63,9 +63,13 @@ def test_exists(note):
 
 
 def test_latest(note):
-    # success
+    # success - existing Page
     page = note.latest()
     assert page.body == "Alpha new.\n"
+
+    # success - non-existent Page
+    page = Note(note.dbse, -1).latest()
+    assert page is None
 
 
 def test_update(note):
