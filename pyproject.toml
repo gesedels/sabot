@@ -6,7 +6,7 @@ dependencies = ["click>=8.2.1"]
 requires-python = ">=3.13"
 license = {text = "BSD"}
 authors = [{name = "Stephen Malone", email = "mail@example.com"}]
-version = "0.0.0"
+dynamic = ["version"]
 
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -39,6 +39,9 @@ requires = ["setuptools>=42", "wheel"]
 [tool.pyright]
 venvPath = "."
 venv = ".venv"
+
+[tool.setuptools.dynamic]
+version = {attr = "sabot.VERSION_NUMS"}
 
 [tool.setuptools.packages.find]
 where = ["."]
