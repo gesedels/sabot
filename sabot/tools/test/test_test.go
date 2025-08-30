@@ -24,3 +24,35 @@ func TestDB(t *testing.T) {
 		return nil
 	})
 }
+
+func TestHas(t *testing.T) {
+	// setup
+	db := DB(t)
+
+	// success - true
+	ok := Has(db, "alpha")
+	assert.True(t, ok)
+
+	// success - false
+	ok = Has(db, "nope")
+	assert.False(t, ok)
+}
+
+func TestGet(t *testing.T) {
+	// setup
+	db := DB(t)
+
+	// success
+	data := Get(db, "alpha", "body")
+	assert.Equal(t, "Alpha.\n", data)
+}
+
+func TestSet(t *testing.T) {
+	// setup
+	db := DB(t)
+
+	// success
+	Set(db, "name", "attr", "data")
+	data := Get(db, "name", "attr")
+	assert.Equal(t, "data", data)
+}
