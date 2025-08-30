@@ -7,14 +7,27 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestContains(t *testing.T) {
+	// success - true
+	ok := contains([]byte("name"), "NAM")
+	assert.True(t, ok)
+
+	// success - false
+	ok = contains([]byte("name"), "NOPE")
+	assert.False(t, ok)
+}
+
 func TestDelete(t *testing.T) {
 	// setup
 	db := test.DB(t)
 
 	// success
 	err := Delete(db, "alpha")
-	assert.False(t, test.Has(db, "alpha"))
 	assert.NoError(t, err)
+
+	// confirm
+	ok, _ := Exists(db, "alpha")
+	assert.False(t, ok)
 }
 
 func TestExists(t *testing.T) {
@@ -88,6 +101,9 @@ func TestSet(t *testing.T) {
 
 	// success
 	err := Set(db, "name", map[string]string{"attr": "data"})
-	assert.Equal(t, "data", test.Get(db, "name", "attr"))
 	assert.NoError(t, err)
+
+	// confirm
+	data, _ := GetValue(db, "name", "attr")
+	assert.Equal(t, "data", data)
 }

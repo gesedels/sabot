@@ -7,6 +7,13 @@ import (
 	"go.etcd.io/bbolt"
 )
 
+// contains returns true if a byteslice contains a case-insensitive substring.
+func contains(bytes []byte, subs string) bool {
+	subs = strings.ToLower(subs)
+	text := strings.ToLower(string(bytes))
+	return strings.Contains(text, subs)
+}
+
 // Delete deletes an existing Bucket.
 func Delete(db *bbolt.DB, name string) error {
 	return db.Update(func(tx *bbolt.Tx) error {
@@ -68,29 +75,30 @@ func List(db *bbolt.DB) ([]string, error) {
 
 // Match returns all existing Bucket names containing a substring.
 func Match(db *bbolt.DB, text string) ([]string, error) {
-	var goods []string
+	var names []string
 
-	names, err := List(db)
 	text = strings.ToLower(text)
-	for _, name := range names {
-		if strings.Contains(strings.ToLower(name), text) {
-			goods = append(goods, name)
-		}
-	}
+	return names, db.View(func(tx *bbolt.Tx) error {
+		return tx.ForEach(func(name []byte, _ *bbolt.Bucket) error {
+			if contains(name, text) {
+				names = append(names, string(name))
+			}
 
-	return goods, err
+			return nil
+		})
+	})
 }
 
 // Search returns all existing Bucket names with an attribute containing a substring.
 func Search(db *bbolt.DB, attr, text string) ([]string, error) {
-	var goods []string
+	var names []string
 
 	text = strings.ToLower(text)
-	return goods, db.View(func(tx *bbolt.Tx) error {
+	return names, db.View(func(tx *bbolt.Tx) error {
 		return tx.ForEach(func(name []byte, buck *bbolt.Bucket) error {
 			data := buck.Get([]byte(attr))
-			if strings.Contains(strings.ToLower(string(data)), text) {
-				goods = append(goods, string(name))
+			if contains(data, text) {
+				names = append(names, string(name))
 			}
 
 			return nil

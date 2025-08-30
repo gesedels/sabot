@@ -43,37 +43,3 @@ func DB(t *testing.T) *bbolt.DB {
 
 	return db
 }
-
-// Has returns true if a Bucket exists.
-func Has(db *bbolt.DB, name string) bool {
-	var ok bool
-
-	db.View(func(tx *bbolt.Tx) error {
-		ok = tx.Bucket([]byte(name)) != nil
-		return nil
-	})
-
-	return ok
-}
-
-// Get returns a existing Bucket value.
-func Get(db *bbolt.DB, name, attr string) string {
-	var data string
-
-	db.View(func(tx *bbolt.Tx) error {
-		buck := tx.Bucket([]byte(name))
-		data = string(buck.Get([]byte(attr)))
-		return nil
-	})
-
-	return data
-}
-
-// Set overwrites a new or existing Bucket value.
-func Set(db *bbolt.DB, name, attr, data string) {
-	db.Update(func(tx *bbolt.Tx) error {
-		buck, _ := tx.CreateBucketIfNotExists([]byte(name))
-		buck.Put([]byte(attr), []byte(data))
-		return nil
-	})
-}
