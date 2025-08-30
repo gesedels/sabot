@@ -2,11 +2,10 @@
 package test
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
 	"path/filepath"
 	"testing"
 
+	"github.com/gesedels/sabot/sabot/tools/neat"
 	"go.etcd.io/bbolt"
 )
 
@@ -14,18 +13,16 @@ import (
 var MockData = map[string]map[string]string{
 	"alpha": {
 		"body": "Alpha.\n",
-		"hash": hash("Alpha.\n"),
-		"init": "2000-01-01T12:00:00Z10:00",
-		"last": "2000-01-01T12:00:00Z10:00",
-		"tags": "",
+		"hash": neat.Hash("Alpha.\n"),
+		"init": "2000-01-01T12:00:00Z00:00",
+		"last": "2000-01-01T12:00:00Z00:00",
 	},
 
 	"bravo": {
 		"body": "Bravo #foo #bar.\n",
-		"hash": hash("Bravo #foo #bar.\n"),
-		"init": "2000-01-02T12:00:00Z10:00",
-		"last": "2000-01-02T18:00:00Z10:00",
-		"tags": "bar foo",
+		"hash": neat.Hash("Bravo #foo #bar.\n"),
+		"init": "2000-01-02T12:00:00Z00:00",
+		"last": "2000-01-02T18:00:00Z00:00",
 	},
 }
 
@@ -45,10 +42,4 @@ func DB(t *testing.T) *bbolt.DB {
 	})
 
 	return db
-}
-
-// hash returns the base64-encoded SHA256 hash of the input string.
-func hash(body string) string {
-	hash := sha256.Sum256([]byte(body))
-	return base64.RawURLEncoding.EncodeToString(hash[:])
 }
