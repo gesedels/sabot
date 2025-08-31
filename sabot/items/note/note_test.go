@@ -148,8 +148,6 @@ func TestLast(t *testing.T) {
 func TestUpdate(t *testing.T) {
 	// setup
 	note := mockNote(t)
-	hash := neat.Hash("Body.\n")
-	last := time.Now().Format(time.RFC3339)
 
 	// success
 	err := note.Update("Body.\n")
@@ -157,9 +155,12 @@ func TestUpdate(t *testing.T) {
 
 	// confirm
 	pairs, _ := bolt.Get(note.DB, "alpha")
-	assert.Equal(t, "Body.\n", pairs["body"])
-	assert.Equal(t, hash, pairs["hash"])
-	assert.Equal(t, last, pairs["last"])
+	assert.Equal(t, map[string]string{
+		"body": "Body.\n",
+		"hash": neat.Hash("Body.\n"),
+		"init": "2000-01-01T12:00:00+10:00",
+		"last": time.Now().Format(time.RFC3339),
+	}, pairs)
 
 	// setup
 	note.DB.Close()

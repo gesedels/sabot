@@ -74,13 +74,13 @@ func List(db *bbolt.DB) ([]string, error) {
 }
 
 // Match returns all existing Bucket names containing a substring.
-func Match(db *bbolt.DB, text string) ([]string, error) {
+func Match(db *bbolt.DB, subs string) ([]string, error) {
 	var names []string
 
-	text = strings.ToLower(text)
+	subs = strings.ToLower(subs)
 	return names, db.View(func(tx *bbolt.Tx) error {
 		return tx.ForEach(func(name []byte, _ *bbolt.Bucket) error {
-			if contains(name, text) {
+			if contains(name, subs) {
 				names = append(names, string(name))
 			}
 
@@ -90,14 +90,14 @@ func Match(db *bbolt.DB, text string) ([]string, error) {
 }
 
 // Search returns all existing Bucket names with an attribute containing a substring.
-func Search(db *bbolt.DB, attr, text string) ([]string, error) {
+func Search(db *bbolt.DB, attr, subs string) ([]string, error) {
 	var names []string
 
-	text = strings.ToLower(text)
+	subs = strings.ToLower(subs)
 	return names, db.View(func(tx *bbolt.Tx) error {
 		return tx.ForEach(func(name []byte, buck *bbolt.Bucket) error {
 			data := buck.Get([]byte(attr))
-			if contains(data, text) {
+			if contains(data, subs) {
 				names = append(names, string(name))
 			}
 

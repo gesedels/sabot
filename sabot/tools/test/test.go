@@ -20,7 +20,7 @@ var MockData = map[string]map[string]string{
 
 	"bravo": {
 		"body": "Bravo #foo #bar.\n",
-		"hash": neat.Hash("Bravo #foo #bar.\n"),
+		"hash": "<incorrect checksum>",
 		"init": "2000-01-02T12:00:00+10:00",
 		"last": "2000-01-02T18:00:00+10:00",
 	},
