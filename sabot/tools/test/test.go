@@ -14,15 +14,15 @@ var MockData = map[string]map[string]string{
 	"alpha": {
 		"body": "Alpha.\n",
 		"hash": neat.Hash("Alpha.\n"),
-		"init": "2000-01-01T12:00:00Z00:00",
-		"last": "2000-01-01T12:00:00Z00:00",
+		"init": "2000-01-01T12:00:00+10:00",
+		"last": "2000-01-01T12:00:00+10:00",
 	},
 
 	"bravo": {
 		"body": "Bravo #foo #bar.\n",
 		"hash": neat.Hash("Bravo #foo #bar.\n"),
-		"init": "2000-01-02T12:00:00Z00:00",
-		"last": "2000-01-02T18:00:00Z00:00",
+		"init": "2000-01-02T12:00:00+10:00",
+		"last": "2000-01-02T18:00:00+10:00",
 	},
 }
 
