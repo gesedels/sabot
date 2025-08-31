@@ -14,7 +14,7 @@ type Command interface {
 	// Name returns the Command's callable name.
 	Name() string
 
-	// Help returns the Command's help and demo strings.
+	// Help returns the Command's demo and help strings.
 	Help() (string, string)
 
 	// Run executes the Command with arguments.
@@ -26,7 +26,7 @@ type NewCommand func(*book.Book) Command
 
 // Commands is a map of all defined Commands.
 var Commands = map[string]NewCommand{
-	// "get": get.New,
+	"show": NewShowCommand,
 }
 
 // Run discovers and executes a Command with arguments.
