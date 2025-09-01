@@ -16,7 +16,7 @@ var (
 )
 
 func mockNote(t *testing.T) *Note {
-	db := test.DB(t)
+	db := test.MockDB(t)
 	return New(db, "alpha")
 }
 

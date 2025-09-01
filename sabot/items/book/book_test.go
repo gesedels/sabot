@@ -12,13 +12,13 @@ import (
 )
 
 func mockBook(t *testing.T) *Book {
-	db := test.DB(t)
+	db := test.MockDB(t)
 	return New(db)
 }
 
 func TestToNotes(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	notes := toNotes(db, []string{"alpha"})

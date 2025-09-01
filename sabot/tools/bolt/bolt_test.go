@@ -19,7 +19,7 @@ func TestContains(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	err := Delete(db, "alpha")
@@ -32,7 +32,7 @@ func TestDelete(t *testing.T) {
 
 func TestExists(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success - true
 	ok, err := Exists(db, "alpha")
@@ -47,7 +47,7 @@ func TestExists(t *testing.T) {
 
 func TestGet(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	pairs, err := Get(db, "alpha")
@@ -57,7 +57,7 @@ func TestGet(t *testing.T) {
 
 func TestGetValue(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	data, err := GetValue(db, "alpha", "body")
@@ -67,7 +67,7 @@ func TestGetValue(t *testing.T) {
 
 func TestList(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	names, err := List(db)
@@ -77,7 +77,7 @@ func TestList(t *testing.T) {
 
 func TestMatch(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	names, err := Match(db, "ALPH")
@@ -87,7 +87,7 @@ func TestMatch(t *testing.T) {
 
 func TestSearch(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	names, err := Search(db, "body", "ALPH")
@@ -97,7 +97,7 @@ func TestSearch(t *testing.T) {
 
 func TestSet(t *testing.T) {
 	// setup
-	db := test.DB(t)
+	db := test.MockDB(t)
 
 	// success
 	err := Set(db, "name", map[string]string{"attr": "data"})

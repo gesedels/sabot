@@ -26,8 +26,8 @@ var MockData = map[string]map[string]string{
 	},
 }
 
-// DB returns a temporary database populated with MockData.
-func DB(t *testing.T) *bbolt.DB {
+// MockDB returns a temporary database populated with MockData.
+func MockDB(t *testing.T) *bbolt.DB {
 	path := filepath.Join(t.TempDir(), "bolt.db")
 	db, _ := bbolt.Open(path, 0660, nil)
 	db.Update(func(tx *bbolt.Tx) error {

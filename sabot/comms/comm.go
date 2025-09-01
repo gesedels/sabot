@@ -1,5 +1,5 @@
-// Package comm implements the Command interface and collections.
-package comm
+// Package comms implements the Command interface and collections.
+package comms
 
 import (
 	"fmt"

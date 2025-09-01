@@ -5,18 +5,18 @@
 - [x] Change `book.Close()` to return an error.
 - [x] Use `try(book.Close())` in main script.
 - [x] Change default permissions to `0660` (user- and group-readable only).
-- [ ] Add timeout options to database configuration.
+- [x] Add timeout options to database configuration.
 
 ### Data Inconsistencies
 - [ ] Change multiple `time.Now()` calls into a single stored call.
 - [ ] Add `neat.Pairs` to return a consistent database dict with time values.
 
 ### Unit Testing
-- [ ] Change `test.DB` to `test.MockDB`.
+- [x] Change `test.DB` to `test.MockDB`.
 - [ ] Use tools to ensure code is fully covered.
 
 ### Codebase Corrections
-- [ ] Change package name in `sabot/comms` to `comms`.
+- [x] Change package name in `sabot/comms` to `comms`.
 - [ ] Ensure doc comments are used everywhere and consistently written.
 - [ ] Consider changing codebase to single-character variable names.
 

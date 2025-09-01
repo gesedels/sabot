@@ -9,7 +9,7 @@ import (
 
 func TestDB(t *testing.T) {
 	// success
-	db := DB(t)
+	db := MockDB(t)
 	db.View(func(tx *bbolt.Tx) error {
 		for name, pairs := range MockData {
 			buck := tx.Bucket([]byte(name))

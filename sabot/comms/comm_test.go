@@ -1,4 +1,4 @@
-package comm
+package comms
 
 import (
 	"bytes"
@@ -35,7 +35,7 @@ func setupCommand(t *testing.T, cfun NewCommand) {
 
 func runCommand(t *testing.T, elems ...string) (string, *book.Book, error) {
 	b := new(bytes.Buffer)
-	book := book.New(test.DB(t))
+	book := book.New(test.MockDB(t))
 	err := Run(b, book, elems)
 	return b.String(), book, err
 }
