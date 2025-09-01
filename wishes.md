@@ -25,3 +25,4 @@
 - [ ] Create `clui.DatabasePath` to get database path based on environs.
 - [ ] Create `tools/errs` package and decide on consistent user-friendly format.
 - [ ] Ensure command help matches demo, e.g.: `Print NOTE if it exists` with `show NOTE`.
+- [ ] Add -d debug command and use it to reveal logging throughout the system.
