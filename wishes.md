@@ -4,7 +4,7 @@
 ### Safety & Security
 - [x] Change `book.Close()` to return an error.
 - [x] Use `try(book.Close())` in main script.
-- [ ] Change default permissions to `0660` (user- and group-readable only).
+- [x] Change default permissions to `0660` (user- and group-readable only).
 - [ ] Add timeout options to database configuration.
 
 ### Data Inconsistencies

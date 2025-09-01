@@ -33,7 +33,7 @@ func New(db *bbolt.DB) *Book {
 
 // NewPath returns a new Book from a database path.
 func NewPath(path string) (*Book, error) {
-	db, err := bbolt.Open(path, 0666, nil)
+	db, err := bbolt.Open(path, 0660, nil)
 	if err != nil {
 		return nil, fmt.Errorf("cannot open Book %q - %w", path, err)
 	}
