@@ -26,3 +26,8 @@
 - [ ] Create `tools/errs` package and decide on consistent user-friendly format.
 - [ ] Ensure command help matches demo, e.g.: `Print NOTE if it exists` with `show NOTE`.
 - [ ] Add -d debug command and use it to reveal logging throughout the system.
+
+### New Command System
+- [ ] Remove `Command` type and replace with a single `Run` function:
+  - Switch logic based on parsed flags, not subcommands.
+  - E.g.: `-d` for debug, `-e` for edit, use a FlagSet.
