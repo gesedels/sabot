@@ -2,8 +2,18 @@
 package clui
 
 import (
+	"fmt"
 	"strings"
 )
+
+// Need returns an error if an argument slice is below a minimum length.
+func Need(elems []string, size int) error {
+	if size > len(elems) {
+		return fmt.Errorf("not enough arguments")
+	}
+
+	return nil
+}
 
 // Split returns a Command name and argument slice from an argument slice.
 func Split(elems []string) (string, []string) {

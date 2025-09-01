@@ -6,6 +6,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestNeed(t *testing.T) {
+	// success
+	err := Need([]string{"argument"}, 1)
+	assert.NoError(t, err)
+
+	// error - not enough arguments
+	err = Need(nil, 1)
+	assert.EqualError(t, err, `not enough arguments`)
+}
+
 func TestSplit(t *testing.T) {
 	// success - zero arguments
 	name, elems := Split(nil)

@@ -26,6 +26,7 @@ type NewCommand func(*book.Book) Command
 
 // Commands is a map of all defined Commands.
 var Commands = map[string]NewCommand{
+	"help": NewHelpCommand,
 	"show": NewShowCommand,
 }
 
