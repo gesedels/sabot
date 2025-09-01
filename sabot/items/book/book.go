@@ -63,8 +63,12 @@ func (b *Book) Check() ([]*note.Note, error) {
 }
 
 // Close closes the Book's database.
-func (b *Book) Close() {
-	b.DB.Close()
+func (b *Book) Close() error {
+	if err := b.DB.Close(); err != nil {
+		return fmt.Errorf("cannot close Book - %w", err)
+	}
+
+	return nil
 }
 
 // Create creates and returns a new Note.

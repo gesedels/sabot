@@ -2,13 +2,14 @@
 
 ## 2025-09-01
 ### Safety & Security
-- [ ] Change `book.Close()` to return an error.
-- [ ] Use `defer try(book.Close())` in main script.
+- [x] Change `book.Close()` to return an error.
+- [x] Use `try(book.Close())` in main script.
 - [ ] Change default permissions to `0660` (user- and group-readable only).
 - [ ] Add timeout options to database configuration.
 
 ### Data Inconsistencies
 - [ ] Change multiple `time.Now()` calls into a single stored call.
+- [ ] Add `neat.Pairs` to return a consistent database dict with time values.
 
 ### Unit Testing
 - [ ] Change `test.DB` to `test.MockDB`.

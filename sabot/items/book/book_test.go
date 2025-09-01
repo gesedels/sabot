@@ -71,7 +71,8 @@ func TestClose(t *testing.T) {
 	book := mockBook(t)
 
 	// success
-	book.Close()
+	err := book.Close()
+	assert.NoError(t, err)
 }
 
 func TestCreate(t *testing.T) {

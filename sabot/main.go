@@ -19,4 +19,5 @@ func main() {
 	book, err := book.NewPath("./sabot.db")
 	try(err)
 	try(comm.Run(os.Stdout, book, os.Args[1:]))
+	try(book.Close())
 }
