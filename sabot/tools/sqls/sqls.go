@@ -26,8 +26,7 @@ const Schema = `
 	create table if not exists Notes (
 		id   integer primary key asc,
 		init integer not null default (unixepoch()),
-		name text    not null unique,
-		hash text    not null
+		name text    not null unique
 	);
 
 	create table if not exists Pages (
